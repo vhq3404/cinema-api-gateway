@@ -5,15 +5,42 @@ apiEndpoints:
   user_signup:
     path: /api/signup
     method: POST
+
   user_login:
     path: /api/login
     method: POST
 
+  movie_getAll:
+    path: /api/movies
+    method: GET
+
+  movie_getById:
+    path: /api/movies/:id
+    method: GET
+
+  movie_add:
+    path: /api/movies
+    method: POST
+
+  movie_update:
+    path: /api/movies/:id
+    method: PUT
+
+  movie_delete:
+    path: /api/movies/:id
+    method: DELETE
+
+  movie_static_files:
+    path: /uploads/*
+    method: GET
+
 serviceEndpoints:
   user-service:
     url: http://localhost:5000
+  movie-service:
+    url: http://localhost:5001
 
-policies:             
+policies:
   - basic-auth
   - cors
   - expression
@@ -21,6 +48,7 @@ policies:
   - log
   - oauth2
   - proxy
+
 pipelines:
   user:
     apiEndpoints:
@@ -30,3 +58,16 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: user-service
+
+  movies:
+    apiEndpoints:
+      - movie_getAll
+      - movie_getById
+      - movie_add
+      - movie_update
+      - movie_delete
+      - movie_static_files
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: movie-service
