@@ -31,7 +31,67 @@ apiEndpoints:
     method: DELETE
 
   movie_static_files:
-    path: /uploads/*
+    path: /movies/uploads/*
+    method: GET
+
+  theater_getAll:
+    path: /api/theaters
+    method: GET
+
+  theater_getById:
+    path: /api/theaters/:id
+    method: GET
+
+  theater_create:
+    path: /api/theaters
+    method: POST
+
+  theater_update:
+    path: /api/theaters/:id
+    method: PUT
+
+  theater_delete:
+    path: /api/theaters/:id
+    method: DELETE
+
+  theater_getGallery:
+    path: /api/theaters/:id/gallery
+    method: GET
+
+  theater_static_files:
+    path: /theaters/uploads/*
+    method: GET
+
+  room_create:
+    path: /api/rooms
+    method: POST
+
+  room_edit:
+    path: /api/rooms/:roomId
+    method: PUT
+
+  room_delete:
+    path: /api/rooms/:roomId
+    method: DELETE
+
+  seats_create:
+    path: /api/seats/generate
+    method: POST
+
+  seats_room:
+    path: /api/seats/room/:roomId
+    method: GET
+
+  seats_type:
+    path: /api/seats/:seatId/type
+    method: PUT
+
+  seats_status:
+    path: /api/seats/:seatId/status
+    method: PUT
+
+  room_getAllByTheater:
+    path: /api/rooms/theater/:theaterId
     method: GET
 
 serviceEndpoints:
@@ -39,6 +99,8 @@ serviceEndpoints:
     url: http://localhost:5000
   movie-service:
     url: http://localhost:5001
+  theater-service:
+    url: http://localhost:5002  
 
 policies:
   - basic-auth
@@ -71,3 +133,26 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: movie-service
+    
+  theaters:
+    apiEndpoints:
+      - theater_getAll
+      - theater_getById
+      - theater_create
+      - theater_update
+      - theater_delete
+      - theater_getGallery
+      - theater_static_files
+      - room_create        
+      - room_edit
+      - room_delete     
+      - room_getAllByTheater
+      - seats_create
+      - seats_room
+      - seats_type
+      - seats_status
+
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: theater-service
