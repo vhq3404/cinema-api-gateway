@@ -94,6 +94,18 @@ apiEndpoints:
     path: /api/rooms/theater/:theaterId
     method: GET
 
+  showtime_create:
+    path: /api/showtimes
+    method: POST
+
+  showtime_get:
+    path: /api/showtimes
+    method: GET
+
+  showtime_delete:
+    path: /api/showtimes/:showtimeId
+    method: DELETE
+
 serviceEndpoints:
   user-service:
     url: http://localhost:5000
@@ -101,6 +113,8 @@ serviceEndpoints:
     url: http://localhost:5001
   theater-service:
     url: http://localhost:5002  
+  schedule-service:
+    url: http://localhost:5003  
 
 policies:
   - basic-auth
@@ -156,3 +170,14 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: theater-service
+
+  showtimes:
+    apiEndpoints:
+      - showtime_create
+      - showtime_get
+      - showtime_delete
+
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: schedule-service
