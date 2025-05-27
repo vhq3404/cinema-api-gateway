@@ -106,6 +106,30 @@ apiEndpoints:
     path: /api/showtimes/:showtimeId
     method: DELETE
 
+  booking_getAll:
+    path: /api/bookings
+    method: GET
+
+  booking_getById:
+    path: /api/bookings/:id
+    method: GET
+
+  booking_create:
+    path: /api/bookings
+    method: POST
+
+  booking_updateStatus:
+    path: /api/bookings/:id/status
+    method: PUT
+
+  booking_delete:
+    path: /api/bookings/:id
+    method: DELETE
+
+  booking_lockedSeats:
+    path: /api/bookings/locked-seats/:showtimeId
+    method: GET
+
 serviceEndpoints:
   user-service:
     url: http://localhost:5000
@@ -115,6 +139,8 @@ serviceEndpoints:
     url: http://localhost:5002  
   schedule-service:
     url: http://localhost:5003  
+  booking-service:
+    url: http://localhost:5004 
 
 policies:
   - basic-auth
@@ -181,3 +207,16 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: schedule-service
+
+  bookings:
+    apiEndpoints:
+      - booking_getAll
+      - booking_getById
+      - booking_create
+      - booking_updateStatus
+      - booking_delete
+      - booking_lockedSeats
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: booking-service
