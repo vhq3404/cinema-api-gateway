@@ -78,6 +78,9 @@ apiEndpoints:
     path: /api/seats/generate
     method: POST
 
+  seats_get:
+    path: /api/seats/:seatId
+    method: GET
   seats_room:
     path: /api/seats/room/:roomId
     method: GET
@@ -102,12 +105,20 @@ apiEndpoints:
     path: /api/showtimes
     method: GET
 
+  showtime_getId:
+    path: /api/showtimes/:showtimeId
+    method: GET
+
   showtime_delete:
     path: /api/showtimes/:showtimeId
     method: DELETE
 
   booking_getAll:
     path: /api/bookings
+    method: GET
+
+  booking_getByUser:
+    path: /api/bookings/user/:userId
     method: GET
 
   booking_getById:
@@ -188,6 +199,7 @@ pipelines:
       - room_delete     
       - room_getAllByTheater
       - seats_create
+      - seats_get
       - seats_room
       - seats_type
       - seats_status
@@ -201,6 +213,7 @@ pipelines:
     apiEndpoints:
       - showtime_create
       - showtime_get
+      - showtime_getId
       - showtime_delete
 
     policies:
@@ -212,6 +225,7 @@ pipelines:
     apiEndpoints:
       - booking_getAll
       - booking_getById
+      - booking_getByUser
       - booking_create
       - booking_updateStatus
       - booking_delete
