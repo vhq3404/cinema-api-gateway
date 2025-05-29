@@ -141,6 +141,10 @@ apiEndpoints:
     path: /api/bookings/locked-seats/:showtimeId
     method: GET
 
+  payment_payos:
+   path: /api/payments/payos
+   method: POST
+
 serviceEndpoints:
   user-service:
     url: http://localhost:5000
@@ -151,7 +155,9 @@ serviceEndpoints:
   schedule-service:
     url: http://localhost:5003  
   booking-service:
-    url: http://localhost:5004 
+    url: http://localhost:5004
+  payment-service:
+    url: http://localhost:5005  
 
 policies:
   - basic-auth
@@ -234,3 +240,11 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: booking-service
+
+  payments:
+    apiEndpoints:
+      - payment_payos
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: payment-service
