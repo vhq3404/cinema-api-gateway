@@ -10,6 +10,10 @@ apiEndpoints:
     path: /api/login
     method: POST
 
+  user_update:
+    path: /api/users/:id
+    method: PUT
+
   movie_getAll:
     path: /api/movies
     method: GET
@@ -129,6 +133,10 @@ apiEndpoints:
     path: /api/bookings
     method: POST
 
+  booking_updatePrice:
+    path: /api/bookings/:id/total_price
+    method: PUT
+
   booking_updateStatus:
     path: /api/bookings/:id/status
     method: PUT
@@ -143,6 +151,10 @@ apiEndpoints:
 
   payment_payos:
    path: /api/payments/payos
+   method: POST
+
+  payment_success:
+   path: /api/payments/success
    method: POST
 
 serviceEndpoints:
@@ -173,6 +185,7 @@ pipelines:
     apiEndpoints:
       - user_signup
       - user_login
+      - user_update
     policies:
       - proxy:
           - action:
@@ -233,9 +246,11 @@ pipelines:
       - booking_getById
       - booking_getByUser
       - booking_create
+      - booking_updatePrice
       - booking_updateStatus
       - booking_delete
       - booking_lockedSeats
+   
     policies:
       - proxy:
           - action:
@@ -244,6 +259,7 @@ pipelines:
   payments:
     apiEndpoints:
       - payment_payos
+      - payment_success
     policies:
       - proxy:
           - action:
