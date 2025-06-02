@@ -161,13 +161,13 @@ serviceEndpoints:
   user-service:
     url: http://localhost:5000
   movie-service:
-    url: http://localhost:5001
+    url: https://movieservice-gwdb.onrender.com
   theater-service:
     url: http://localhost:5002  
   schedule-service:
     url: http://localhost:5003  
   booking-service:
-    url: http://localhost:5004
+    url: http://localhost:5006
   payment-service:
     url: http://localhost:5005  
 
