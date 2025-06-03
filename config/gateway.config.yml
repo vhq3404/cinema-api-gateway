@@ -149,6 +149,34 @@ apiEndpoints:
     path: /api/bookings/locked-seats/:showtimeId
     method: GET
 
+  food_booking_getAll:
+    path: /api/food-bookings
+    method: GET
+
+  food_booking_getByUser:
+    path: /api/food-bookings/user/:userId
+    method: GET
+
+  food_booking_getById:
+    path: /api/food-bookings/:id
+    method: GET
+
+  food_booking_create:
+    path: /api/food-bookings
+    method: POST
+
+  food_booking_updatePrice:
+    path: /api/food-bookings/:id/total_price
+    method: PUT
+
+  food_booking_updateStatus:
+    path: /api/food-bookings/:id/status
+    method: PUT
+
+  food_booking_delete:
+    path: /api/food-bookings/:id
+    method: DELETE
+
   payment_payos:
    path: /api/payments/payos
    method: POST
@@ -156,6 +184,30 @@ apiEndpoints:
   payment_success:
    path: /api/payments/success
    method: POST
+
+  food_getAll:
+    path: /api/foods
+    method: GET
+
+  food_getById:
+    path: /api/foods/:id
+    method: GET
+
+  food_add:
+    path: /api/foods
+    method: POST
+
+  food_update:
+    path: /api/foods/:id
+    method: PUT
+
+  food_delete:
+    path: /api/foods/:id
+    method: DELETE
+
+  food_static_files:
+    path: /foods/uploads/*
+    method: GET
 
 serviceEndpoints:
   user-service:
@@ -169,7 +221,9 @@ serviceEndpoints:
   booking-service:
     url: http://localhost:5006
   payment-service:
-    url: http://localhost:5005  
+    url: http://localhost:5005
+  food-service:
+    url: http://localhost:5007    
 
 policies:
   - basic-auth
@@ -203,6 +257,19 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: movie-service
+
+  foods:
+    apiEndpoints:
+      - food_getAll
+      - food_getById
+      - food_add
+      - food_update
+      - food_delete
+      - food_static_files
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: food-service
     
   theaters:
     apiEndpoints:
@@ -250,6 +317,13 @@ pipelines:
       - booking_updateStatus
       - booking_delete
       - booking_lockedSeats
+      - food_booking_getAll
+      - food_booking_getById
+      - food_booking_getByUser
+      - food_booking_create
+      - food_booking_updatePrice
+      - food_booking_updateStatus
+      - food_booking_delete
    
     policies:
       - proxy:
