@@ -10,9 +10,29 @@ apiEndpoints:
     path: /api/login
     method: POST
 
+  user_get:
+    path: /api/users/:id
+    method: GET
+
   user_update:
     path: /api/users/:id
     method: PUT
+
+  user_change_password:
+    path: /api/users/:id/change-password
+    method: PUT
+
+  user_send_otp:
+    path: /api/forgot-password/send-otp
+    method: POST
+
+  user_verify_otp:
+    path: /api/forgot-password/verify-otp
+    method: POST
+
+  user_reset_password:
+    path: /api/forgot-password/reset-password
+    method: POST
 
   movie_getAll:
     path: /api/movies
@@ -178,12 +198,12 @@ apiEndpoints:
     method: DELETE
 
   payment_payos:
-   path: /api/payments/payos
-   method: POST
+    path: /api/payments/payos
+    method: POST
 
   payment_success:
-   path: /api/payments/success
-   method: POST
+    path: /api/payments/success
+    method: POST
 
   food_getAll:
     path: /api/foods
@@ -215,15 +235,15 @@ serviceEndpoints:
   movie-service:
     url: https://movieservice-gwdb.onrender.com
   theater-service:
-    url: http://localhost:5002  
+    url: http://localhost:5002
   schedule-service:
-    url: http://localhost:5003  
+    url: http://localhost:5003
   booking-service:
     url: http://localhost:5006
   payment-service:
     url: http://localhost:5005
   food-service:
-    url: http://localhost:5007    
+    url: http://localhost:5007
 
 policies:
   - basic-auth
@@ -239,7 +259,12 @@ pipelines:
     apiEndpoints:
       - user_signup
       - user_login
+      - user_get
       - user_update
+      - user_change_password
+      - user_send_otp
+      - user_verify_otp
+      - user_reset_password
     policies:
       - proxy:
           - action:
@@ -270,7 +295,7 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: food-service
-    
+
   theaters:
     apiEndpoints:
       - theater_getAll
@@ -280,9 +305,9 @@ pipelines:
       - theater_delete
       - theater_getGallery
       - theater_static_files
-      - room_create        
+      - room_create
       - room_edit
-      - room_delete     
+      - room_delete
       - room_getAllByTheater
       - seats_create
       - seats_get
@@ -324,7 +349,7 @@ pipelines:
       - food_booking_updatePrice
       - food_booking_updateStatus
       - food_booking_delete
-   
+
     policies:
       - proxy:
           - action:
