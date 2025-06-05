@@ -34,6 +34,22 @@ apiEndpoints:
     path: /api/forgot-password/reset-password
     method: POST
 
+  employee_create:
+    path: /api/employees
+    method: POST
+
+  employee_update:
+    path: /api/employees/:id
+    method: PUT
+
+  employee_delete:
+    path: /api/employees/:id
+    method: DELETE
+
+  employee_getAll:
+    path: /api/employees/
+    method: GET
+
   movie_getAll:
     path: /api/movies
     method: GET
@@ -270,6 +286,10 @@ pipelines:
       - user_send_otp
       - user_verify_otp
       - user_reset_password
+      - employee_create
+      - employee_update
+      - employee_delete
+      - employee_getAll
     policies:
       - proxy:
           - action:
