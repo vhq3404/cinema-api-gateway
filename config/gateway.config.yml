@@ -10,6 +10,10 @@ apiEndpoints:
     path: /api/login
     method: POST
 
+  user_getAll:
+    path: /api/users
+    method: GET
+
   user_get:
     path: /api/users/:id
     method: GET
@@ -185,6 +189,26 @@ apiEndpoints:
     path: /api/bookings/locked-seats/:showtimeId
     method: GET
 
+  booking_refund_request:
+    path: /api/bookings/:id/refund-request
+    method: POST
+
+  booking_refund_cancel:
+    path: /api/bookings/:id/refund-cancel
+    method: DELETE
+  
+  booking_refund_booking:
+    path: /api/bookings/refund-bookings/booking/:bookingId
+    method: GET
+
+  booking_refund_bookingId:
+    path: /api/bookings/refund-bookings/:id
+    method: GET
+
+  refund_booking_getAll:
+    path: /api/bookings/refund-bookings
+    method: GET
+
   food_booking_getAll:
     path: /api/food-bookings
     method: GET
@@ -216,7 +240,6 @@ apiEndpoints:
   food_booking_getItemsByBookingId:
     path: /api/food-bookings/:id/items
     method: GET
-
 
   payment_payos:
     path: /api/payments/payos
@@ -280,6 +303,7 @@ pipelines:
     apiEndpoints:
       - user_signup
       - user_login
+      - user_getAll
       - user_get
       - user_update
       - user_change_password
@@ -367,6 +391,11 @@ pipelines:
       - booking_updateStatus
       - booking_delete
       - booking_lockedSeats
+      - booking_refund_request
+      - booking_refund_cancel
+      - booking_refund_booking
+      - booking_refund_bookingId
+      - refund_booking_getAll
       - food_booking_getAll
       - food_booking_getById
       - food_booking_getByUser
