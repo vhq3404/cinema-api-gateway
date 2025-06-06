@@ -196,7 +196,7 @@ apiEndpoints:
   booking_refund_cancel:
     path: /api/bookings/:id/refund-cancel
     method: DELETE
-  
+
   booking_refund_booking:
     path: /api/bookings/refund-bookings/booking/:bookingId
     method: GET
@@ -273,6 +273,30 @@ apiEndpoints:
     path: /foods/uploads/*
     method: GET
 
+  promotion_getAll:
+    path: /api/promotions
+    method: GET
+
+  promotion_getById:
+    path: /api/promotions/:id
+    method: GET
+
+  promotion_add:
+    path: /api/promotions
+    method: POST
+
+  promotion_update:
+    path: /api/promotions/:id
+    method: PUT
+
+  promotion_delete:
+    path: /api/promotions/:id
+    method: DELETE
+
+  promotion_static_files:
+    path: /promotions/uploads/*
+    method: GET
+
 serviceEndpoints:
   user-service:
     url: http://localhost:5000
@@ -288,6 +312,8 @@ serviceEndpoints:
     url: http://localhost:5005
   food-service:
     url: http://localhost:5007
+  promotion-service:
+    url: http://localhost:5008
 
 policies:
   - basic-auth
@@ -418,3 +444,16 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: payment-service
+
+  promotions:
+    apiEndpoints:
+      - promotion_getAll
+      - promotion_getById
+      - promotion_add
+      - promotion_update
+      - promotion_delete
+      - promotion_static_files
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: promotion-service
