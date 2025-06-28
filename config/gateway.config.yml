@@ -145,6 +145,14 @@ apiEndpoints:
     path: /api/showtimes
     method: POST
 
+  showtime_generate:
+    path: /api/generate-showtimes
+    method: POST
+
+  showtime_update_prices:
+    path: /api/update-prices
+    method: PATCH
+
   showtime_get:
     path: /api/showtimes
     method: GET
@@ -301,7 +309,7 @@ serviceEndpoints:
   user-service:
     url: http://localhost:5000
   movie-service:
-    url: https://movieservice-gwdb.onrender.com
+    url: http://localhost:5001
   theater-service:
     url: http://localhost:5002
   schedule-service:
@@ -398,8 +406,10 @@ pipelines:
   showtimes:
     apiEndpoints:
       - showtime_create
+      - showtime_generate
       - showtime_get
       - showtime_getId
+      - showtime_update_prices
       - showtime_delete
 
     policies:
